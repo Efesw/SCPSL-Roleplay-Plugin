@@ -1,6 +1,6 @@
 # RpPluginByEfes
 
-SCP: Secret Laboratory (EXILED) sunucuları için geliştirilmiş bir Roleplay (Rol Yapma) eklentisi.
+SCP: Secret Laboratory (EXILED) sunucuları için geliştirilmiş bir Roleplay Komut ve Arayüz eklentisi.
 
 **GEREKSİNİM:** Bu eklentinin çalışması için `HintServiceMeow` (HSM) YÜKLÜ OLMALIDIR. HSM eklentisini `EXILED/Plugins/dependencies` klasörüne atmanız şarttır.
 
