@@ -20,10 +20,10 @@ namespace RpPluginByEfes
         [Description("Language mode of the plugin. Affects command names (e.g., dice vs zarat). Values: English, Turkish")]
         public PluginLanguage Language { get; set; } = PluginLanguage.English;
 
-        [Description("The server name displayed before the player's name in RP holograms.")]
+        [Description("The server name displayed before the player's name in RP messages.")]
         public string ServerName { get; set; } = "MyServer";
 
-        [Description("Format for the server name prefix in RP holograms. You can use Unity rich text here.")]
+        [Description("Format for the server name prefix in RP messages. You can use Unity rich text here.")]
         public string ServerNameFormat { get; set; } = "<size=60%><color=#ffffff44>{serverName} / </color></size>";
 
         [Description("The format for the RP messages on the screen.")]
