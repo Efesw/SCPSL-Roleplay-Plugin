@@ -1,3 +1,6 @@
+[Turkish](https://github.com/Efesw/SCPSL-Roleplay-Plugin/blob/main/README-TR.md)
+
+
 # RpPluginByEfes
 
 Roleplay HUD plugin for SCP: Secret Laboratory (EXILED).
