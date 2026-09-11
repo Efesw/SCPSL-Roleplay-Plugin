@@ -33,7 +33,7 @@ namespace RpPluginByEfes
         public float MessageDuration { get; set; } = 5f;
         
         [Description("The maximum radius (in meters) within which players can see RP messages.")]
-        public float MessageRange { get; set; } = 15f;
+        public float MessageRange { get; set; } = 10f;
 
         [Description("The hex color code for the player's name in DO/ME/OOC messages.")]
         public string PlayerNameColor { get; set; } = "#cccccc";
@@ -54,13 +54,13 @@ namespace RpPluginByEfes
         public bool ShowCustomInfo { get; set; } = true;
 
         [Description("The format of the text displayed in the HUD. Available variables: {tpsColor}, {tps}, {playerCount}, {maxPlayers}, {playerName}, {playerId}")]
-        public string HudFormat { get; set; } = "<b><color=#ffaa00>RpPluginByEfes</color></b> | <color=#cccccc>TPS: </color><color={tpsColor}>{tps}</color> | <color=#cccccc>Players:</color> {playerCount}/{maxPlayers} | <color=#00ffff>{playerName} ({playerId})</color>";
+        public string HudFormat { get; set; } = "<b><color=#ffaa00>{serverName}</color></b> | <color=#cccccc>TPS: </color><color={tpsColor}>{tps}</color> | <color=#cccccc>Players:</color> {playerCount}/{maxPlayers} | <color=#00ffff>{playerName} ({playerId})</color>";
 
-        [Description("The font size percentage for the HUD text. Default: 70")]
-        public int HudFontSize { get; set; } = 70;
+        [Description("The font size percentage for the HUD text. Default: 65")]
+        public int HudFontSize { get; set; } = 65;
 
         [Description("How often (in seconds) the TPS indicator should update. Default is 5.0s to save performance.")]
-        public float TpsUpdateInterval { get; set; } = 5.0f;
+        public float TpsUpdateInterval { get; set; } = 3.0f;
 
         [Description("The font size percentage for Cinfo text. Default: 60")]
         public int CinfoTextSize { get; set; } = 60;
@@ -69,13 +69,13 @@ namespace RpPluginByEfes
         public int MessageTextSize { get; set; } = 60;
 
         [Description("The maximum character limit for DO/ME/OOC messages.")]
-        public int MaxMessageLength { get; set; } = 32;
+        public int MaxMessageLength { get; set; } = 28;
 
         [Description("The maximum number of RP messages displayed on the screen simultaneously.")]
         public int MaxVisibleMessages { get; set; } = 6;
 
         [Description("The Y (vertical) coordinate for the RpPlugin HUD text. (1050 is near the very bottom)")]
-        public float HudY { get; set; } = 1050f;
+        public float HudY { get; set; } = 1055f;
 
         [Description("The X (horizontal) coordinate for the RpPlugin HUD text. (0 = perfectly centered)")]
         public float HudPositionX { get; set; } = 0f;
@@ -93,7 +93,7 @@ namespace RpPluginByEfes
         public float MessageSpacingY { get; set; } = 30f;
 
         [Description("The cooldown (in seconds) between using RP commands.")]
-        public float CommandCooldownSeconds { get; set; } = 3f;
+        public float CommandCooldownSeconds { get; set; } = 2.5f;
 
         [Description("Cooldown message for RP commands. {0} is the remaining time in seconds.")]
         public string CommandCooldown { get; set; } = "Please wait {0} seconds before using this command again.";

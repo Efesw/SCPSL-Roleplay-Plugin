@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Exiled.API.Features;
 using MEC;
-using Exiled.API.Features.Toys;
 using UnityEngine;
 
 namespace RpPluginByEfes
@@ -48,15 +47,15 @@ namespace RpPluginByEfes
         public void AddMessage(Player sender, string text, string type, string colorHex)
         {
             if (string.IsNullOrEmpty(text)) return;
-            
-            // Satır atlamayı sil ki üst üste binmesin
+
+
             text = text.Replace("\n", " ").Replace("\r", " ");
-            
-            // Güvenlik: Oyuncuların Rich Text (Zengin Metin) veya uzun metin exploitleri yapmasını engelle.
+
+
             text = text.Replace("<", "＜").Replace(">", "＞");
-            // Sadece harf, rakam, boşluk ve temel noktalama işaretlerine izin ver. Emoji, zılgıt ve saçma unicode sembolleri engelle.
+
             text = Regex.Replace(text, @"[^\w\s\p{P}＜＞]", "");
-            
+
             int limit = Plugin.Instance.Config.MaxMessageLength;
             if (text.Length > limit) text = text.Substring(0, limit) + "...";
 
@@ -70,7 +69,7 @@ namespace RpPluginByEfes
             };
             ActiveMessages.Add(msg);
 
-            Log.Info($"[RpPluginByEfes] [{type}] {sender.Nickname} ({sender.Id}): {text}");
+     
 
             foreach (var p in Player.List)
             {
@@ -91,7 +90,7 @@ namespace RpPluginByEfes
             while (true)
             {
                 yield return Timing.WaitForSeconds(0.5f);
-                
+
                 tpsTimer -= 0.5f;
 
                 try
@@ -113,7 +112,7 @@ namespace RpPluginByEfes
                             cachedTpsColor = cachedTps >= 15 ? "#00ff00" : (cachedTps >= 10 ? "#ffff00" : "#ff0000");
                         }
                         catch { }
-                        
+
                         tpsTimer = Plugin.Instance.Config.TpsUpdateInterval;
                     }
 
@@ -123,18 +122,19 @@ namespace RpPluginByEfes
                     foreach (Player p in Player.List)
                     {
                         if (p == null || !p.IsConnected) continue;
-                        
+
                         string dispName = string.IsNullOrEmpty(p.CustomName) ? p.Nickname : p.CustomName;
 
                         var pd = HintServiceMeow.Core.Utilities.PlayerDisplay.Get(p.ReferenceHub);
                         if (pd == null) continue;
 
-                        // --- CINFO HINT ---
+
                         if (Plugin.Instance.Config.ShowCustomInfo && !string.IsNullOrEmpty(p.CustomInfo))
                         {
                             string roleColorHex = "#" + UnityEngine.ColorUtility.ToHtmlStringRGB(p.Role.Color);
                             string cinfoText = $"<align=center><size={Plugin.Instance.Config.CinfoTextSize}%><color={roleColorHex}>{p.CustomInfo.Replace("\n", " ")}</color></size></align>";
-                            try {
+                            try
+                            {
                                 if (pd.TryGetHint("RpHudCinfo", out var absCinfo) && absCinfo is HintServiceMeow.Core.Models.Hints.Hint cinfoHint)
                                 {
                                     cinfoHint.Text = cinfoText;
@@ -153,23 +153,25 @@ namespace RpPluginByEfes
                                         Text = cinfoText
                                     });
                                 }
-                            } catch { }
+                            }
+                            catch { }
                         }
                         else
                         {
                             try { pd.RemoveHint("RpHudCinfo"); } catch { }
                         }
-                        
-                        // --- BASE HUD HINT ---
+
+
                         string baseHud = Plugin.Instance.Config.HudFormat
                             .Replace("{tpsColor}", cachedTpsColor)
                             .Replace("{tps}", cachedTps.ToString("0"))
                             .Replace("{playerCount}", playerCount.ToString())
                             .Replace("{maxPlayers}", maxPlayers.ToString())
-                            .Replace("{playerName}", dispName)
+                            .Replace("{playerName}", p.Nickname)
                             .Replace("{playerId}", p.Id.ToString());
 
-                        try {
+                        try
+                        {
                             if (pd.TryGetHint("RpPluginHud", out var absHud) && absHud is HintServiceMeow.Core.Models.Hints.Hint hudHint)
                             {
                                 hudHint.Text = $"<size={Plugin.Instance.Config.HudFontSize}%>{baseHud}</size>";
@@ -188,9 +190,10 @@ namespace RpPluginByEfes
                                     Text = $"<size={Plugin.Instance.Config.HudFontSize}%>{baseHud}</size>"
                                 });
                             }
-                        } catch { }
+                        }
+                        catch { }
 
-                        // --- MESSAGES HINT ---
+
                         var visibleMsgs = ActiveMessages
                             .Where(m => m.Sender != null && m.Sender.IsConnected && Vector3.Distance(p.Position, m.Sender.Position) <= Plugin.Instance.Config.MessageRange)
                             .OrderBy(m => m.ExpiryTime)
@@ -204,7 +207,7 @@ namespace RpPluginByEfes
 
                         string nameColor = Plugin.Instance.Config.PlayerNameColor;
                         string prefix = Plugin.Instance.Config.ServerNameFormat.Replace("{serverName}", Plugin.Instance.Config.ServerName);
-                        
+
                         for (int i = 0; i < maxMsgs; i++)
                         {
                             if (i < visibleMsgs.Count)
@@ -212,7 +215,7 @@ namespace RpPluginByEfes
                                 var m = visibleMsgs[visibleMsgs.Count - 1 - i];
                                 string nick = m.Sender.Nickname;
                                 string typeFixed = m.Type == "ZAR" ? Plugin.Instance.Config.DicePrefix : m.Type;
-                                
+
                                 string msgLine = Plugin.Instance.Config.MessageFormat
                                     .Replace("{prefix}", prefix)
                                     .Replace("{nameColor}", nameColor)
@@ -220,8 +223,9 @@ namespace RpPluginByEfes
                                     .Replace("{msgColor}", m.ColorHex)
                                     .Replace("{type}", typeFixed)
                                     .Replace("{text}", m.Text);
-                                    
-                                try {
+
+                                try
+                                {
                                     if (pd.TryGetHint($"RpMsg{i}", out var absMsg) && absMsg is HintServiceMeow.Core.Models.Hints.Hint msgHint)
                                     {
                                         msgHint.Text = $"<size={Plugin.Instance.Config.MessageTextSize}%>{msgLine}</size>";
@@ -238,15 +242,16 @@ namespace RpPluginByEfes
                                             Text = $"<size={Plugin.Instance.Config.MessageTextSize}%>{msgLine}</size>"
                                         });
                                     }
-                                } catch { }
+                                }
+                                catch { }
                             }
                             else
                             {
                                 try { pd.RemoveHint($"RpMsg{i}"); } catch { }
                             }
                         }
-                        
-                        // We also need to remove the old combined RpPluginMessages hint just in case they upgrade without restarting
+
+
                         try { pd.RemoveHint("RpPluginMessages"); } catch { }
                     }
                 }

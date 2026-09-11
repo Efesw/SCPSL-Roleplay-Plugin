@@ -7,7 +7,7 @@ namespace RpPluginByEfes
     {
         public override string Name => "RpPluginByEfes";
         public override string Author => "Efes";
-        public override string Prefix => "rppluginbyefes";
+        public override string Prefix => "RoleplayHud";
         public override Version Version => new Version(1, 0, 0);
 
         public static Plugin Instance { get; private set; }

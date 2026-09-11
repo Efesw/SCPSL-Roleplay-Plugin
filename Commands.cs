@@ -16,7 +16,7 @@ namespace RpPluginByEfes.Commands
             Player p = Player.Get(sender);
             if (p == null || p.IsDead || p.Role.Type == PlayerRoles.RoleTypeId.Spectator)
             {
-                response = "Bu komutu kullanmak için hayatta olmalısın.";
+                response = "You need to be alive to use this command";
                 return false;
             }
 
@@ -36,13 +36,13 @@ namespace RpPluginByEfes.Commands
 
             if (arguments.Count == 0)
             {
-                response = "Kullanım: .do [mesaj]";
+                response = "Usage: .do [message]";
                 return false;
             }
 
             string text = string.Join(" ", arguments);
             Plugin.Instance.Manager.AddMessage(p, text, "DO", Plugin.Instance.Config.DoColor);
-            response = "DO mesajı başarıyla gönderildi.";
+            response = "message sent.";
             return true;
         }
     }
@@ -59,7 +59,7 @@ namespace RpPluginByEfes.Commands
             Player p = Player.Get(sender);
             if (p == null || p.IsDead || p.Role.Type == PlayerRoles.RoleTypeId.Spectator)
             {
-                response = "Bu komutu kullanmak için hayatta olmalısın.";
+                response = "You need to be alive to use this command";
                 return false;
             }
 
@@ -79,13 +79,13 @@ namespace RpPluginByEfes.Commands
 
             if (arguments.Count == 0)
             {
-                response = "Kullanım: .me [mesaj]";
+                response = "Usage: .me [message]";
                 return false;
             }
 
             string text = string.Join(" ", arguments);
             Plugin.Instance.Manager.AddMessage(p, text, "ME", Plugin.Instance.Config.MeColor);
-            response = "ME mesajı başarıyla gönderildi.";
+            response = "message sent.";
             return true;
         }
     }
@@ -102,7 +102,7 @@ namespace RpPluginByEfes.Commands
             Player p = Player.Get(sender);
             if (p == null || p.IsDead || p.Role.Type == PlayerRoles.RoleTypeId.Spectator)
             {
-                response = "Bu komutu kullanmak için hayatta olmalısın.";
+                response = "You need to be alive to use this command";
                 return false;
             }
 
@@ -122,13 +122,13 @@ namespace RpPluginByEfes.Commands
 
             if (arguments.Count == 0)
             {
-                response = "Kullanım: .ooc [mesaj]";
+                response = "usage: .ooc [message]";
                 return false;
             }
 
             string text = string.Join(" ", arguments);
             Plugin.Instance.Manager.AddMessage(p, text, "OOC", Plugin.Instance.Config.OocColor);
-            response = "OOC mesajı başarıyla gönderildi.";
+            response = "message sent.";
             return true;
         }
     }
@@ -145,7 +145,7 @@ namespace RpPluginByEfes.Commands
             Player p = Player.Get(sender);
             if (p == null || p.IsDead || p.Role.Type == PlayerRoles.RoleTypeId.Spectator)
             {
-                response = "Bu komutu kullanmak için hayatta olmalısın.";
+                response = "You need to be alive to use this command";
                 return false;
             }
 
@@ -164,16 +164,16 @@ namespace RpPluginByEfes.Commands
             }
 
             int dice = UnityEngine.Random.Range(1, 7);
-            
+
             bool isTr = Plugin.Instance.Config.Language == PluginLanguage.Turkish;
-            string msgTpl = isTr ? "{0} attı" : "rolled a {0}";
-            
-            // If it's TR, they want it to show "ZAR AT" instead of "DICE" (or whatever prefix they set)
+            string msgTpl = isTr ? "{0} Geldi" : "rolled a {0}";
+
+
             string prefix = (isTr && Plugin.Instance.Config.DicePrefix == "DICE") ? "ZAR AT" : Plugin.Instance.Config.DicePrefix;
 
             string text = string.Format(msgTpl, dice);
             Plugin.Instance.Manager.AddMessage(p, text, prefix, Plugin.Instance.Config.DiceColor);
-            response = "Zar atıldı.";
+            response = "message sent.";
             return true;
         }
     }
